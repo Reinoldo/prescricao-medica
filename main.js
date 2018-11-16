@@ -14,6 +14,9 @@ let addWindow;
 app.on('ready', function(){
   // Create new window
   mainWindow = new BrowserWindow({});
+  //data
+  const data = new Date();
+  const dataFormatada = data.getDate() + '/' + data.getMonth() + '/' + data.getFullYear();
   // Load html in window
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'mainWindow.html'),
@@ -35,8 +38,8 @@ app.on('ready', function(){
 function createAddWindow(){
   addWindow = new BrowserWindow({
     width: 300,
-    height:200,
-    title:'Add Shopping List Item'
+    height:300,
+    title:'Adiciona um botão'
   });
   addWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'addWindow.html'),
@@ -51,9 +54,10 @@ function createAddWindow(){
 
 // Catch item:add
 ipcMain.on('item:add', function(e, item){
+  console.log(item);
   mainWindow.webContents.send('item:add', item);
   addWindow.close(); 
-  // Still have a reference to addWindow in memory. Need to reclaim memory (Grabage collection)
+  // Still have a reference to addWindow in memory. Need to reclaim memory (Garbage collection)
   //addWindow = null;
 });
 
@@ -61,7 +65,7 @@ ipcMain.on('item:add', function(e, item){
 const mainMenuTemplate =  [
   // Each object is a dropdown
   {
-    label: 'File',
+    label: 'Add',
     submenu:[
       {
         label:'Add Item',
