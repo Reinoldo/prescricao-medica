@@ -14,6 +14,7 @@ let addWindow;
 app.on('ready', function(){
   // Create new window
   mainWindow = new BrowserWindow({});
+  
   //data
   const data = new Date();
   const dataFormatada = data.getDate() + '/' + data.getMonth() + '/' + data.getFullYear();
@@ -41,6 +42,7 @@ function createAddWindow(){
     height:300,
     title:'Adiciona um botão'
   });
+
   addWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'addWindow.html'),
     protocol: 'file:',
@@ -54,8 +56,9 @@ function createAddWindow(){
 
 // Catch item:add
 ipcMain.on('item:add', function(e, item){
-  console.log(item);
+  console.log('whrer are item',item);
   mainWindow.webContents.send('item:add', item);
+  
   addWindow.close(); 
   // Still have a reference to addWindow in memory. Need to reclaim memory (Garbage collection)
   //addWindow = null;
@@ -109,7 +112,13 @@ if(process.env.NODE_ENV !== 'production'){
         click(item, focusedWindow){
           focusedWindow.toggleDevTools();
         }
+      },{
+        label: 'My Github',
+        click(){
+          mainWindow.loadURL('https://github.com/reinoldo');
+        }
       }
+      
     ]
   });
 }

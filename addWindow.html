@@ -10,7 +10,7 @@
     <form>
       <div>
         <label>Digite o nome do botao</label>
-        <input type="text" id="botao" autofocus>
+        <input type="text" id="item" autofocus>
         <label>Digite o conteúdo do botão</label>
         <input type="text" id="textoDoBotao" autofocus>
       </div>
@@ -27,9 +27,9 @@
     function submitForm(e){
       e.preventDefault();
       const item = document.querySelector('#item').value;
-      
+      const item2 = document.querySelector('#textoDoBotao').value;
       console.log(ipcRenderer);
-      ipcRenderer.send('item:add', item);
+      ipcRenderer.send('item:add', [item, item2]);
     }
   </script>
 </body>
